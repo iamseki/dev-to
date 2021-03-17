@@ -1,4 +1,4 @@
-# Dev-to blog posts
+# Dev.to blog posts
 
 <p align='center'>This repository contains all code base that I used to write my posts in <a href="https://dev.to/chseki">dev.to</a> community</p>
 

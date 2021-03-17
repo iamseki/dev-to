@@ -4,11 +4,11 @@
 
 ## Usage :books:
 
-- I create the branchs with the name likely the **title** of the post
+- I create the branches with the name similar to the **title** of the post
 
 ## Running :scroll:
 
-`go test ./usecases/... -coverprofile cover.out`
+`go test ./usecases/...`
 
 We can also see the coverage results in an pretty interface with built in go tool:
 

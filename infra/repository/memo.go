@@ -15,7 +15,14 @@ var once sync.Once
 
 func NewInMemoryRepository() *Memo {
 	once.Do(func() {
-		singleton = &Memo{}
+		singleton = &Memo{
+			storage: []domain.Event{
+				{Title: "fake title01"},
+				{Title: "fake title01"},
+				{Title: "fake title"},
+				{Title: "fake title"},
+			},
+		}
 	})
 	return singleton
 }
@@ -25,12 +32,16 @@ func (m *Memo) Add(e domain.Event) error {
 	return nil
 }
 
-func (m *Memo) Get(title string) []domain.Event {
+func (m *Memo) Get(title string) ([]domain.Event, error) {
 	var res []domain.Event
+
+	if title == "" {
+		return m.storage, nil
+	}
 	for _, e := range m.storage {
 		if e.Title == title {
 			res = append(res, e)
 		}
 	}
-	return res
+	return res, nil
 }

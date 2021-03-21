@@ -26,7 +26,7 @@ type FindEventInMemory struct {
 }
 
 func (usecase *FindEventInMemory) Find(f domain.Filter) ([]domain.Event, error) {
-	events, err := usecase.repository.Find(f)
+	events, err := usecase.repository.Get(f.Title)
 	if err != nil {
 		return []domain.Event{}, err
 	}

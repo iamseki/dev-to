@@ -7,5 +7,5 @@ type AddInMemoryRepository interface {
 }
 
 type FindInMemoryRepository interface {
-	Find(domain.Filter) ([]domain.Event, error)
+	Get(string) ([]domain.Event, error)
 }

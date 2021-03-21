@@ -33,16 +33,16 @@ func TestAddEventInMemorySucceed(t *testing.T) {
 }
 
 type findEventFakeRepository struct {
-	MockFindFn func(domain.Filter) ([]domain.Event, error)
+	MockFindFn func(string) ([]domain.Event, error)
 }
 
-func (fake *findEventFakeRepository) Find(f domain.Filter) ([]domain.Event, error) {
-	return fake.MockFindFn(f)
+func (fake *findEventFakeRepository) Get(title string) ([]domain.Event, error) {
+	return fake.MockFindFn(title)
 }
 
 func newFindEventFakeRepository() *findEventFakeRepository {
 	return &findEventFakeRepository{
-		MockFindFn: func(f domain.Filter) ([]domain.Event, error) {
+		MockFindFn: func(title string) ([]domain.Event, error) {
 			e := []domain.Event{{Title: "fake event0"}, {Title: "fake event01"}}
 			return e, nil
 		},
@@ -65,7 +65,7 @@ func TestFindEventInMemorySucceed(t *testing.T) {
 
 func TestFindEventInMemoryFailure(t *testing.T) {
 	r := newFindEventFakeRepository()
-	r.MockFindFn = func(f domain.Filter) ([]domain.Event, error) { return []domain.Event{}, errors.New("Fake Error") }
+	r.MockFindFn = func(title string) ([]domain.Event, error) { return []domain.Event{}, errors.New("Fake Error") }
 	u := usecases.NewFindEventInMemory(r)
 
 	events, err := u.Find(domain.Filter{Title: "fake search"})

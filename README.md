@@ -1,4 +1,4 @@
-# Dev.to blog posts
+<h1 align='center'>Dev.to blog posts</h1>
 
 <p align='center'>This repository contains all code base that I used to write my posts in <a href="https://dev.to/chseki">dev.to</a> community</p>
 
@@ -6,11 +6,25 @@
 
 - I create the branches with the name similar to the **title** of the post
 
-## Running :scroll:
+## Testing :scroll:
 
 `go test ./usecases/...`
 
-We can also see the coverage results in an pretty interface with built in go tool:
+We can also see the coverage results in a pretty interface with built in go tool:
 
-- `go test ./usecases/... -coverprofile cover.out`
+- `go test ./... -coverprofile cover.out`
 - `go tool cover -html cover.out`
+
+## Building :whale:
+
+- `docker build -t dev-to .`
+- `docker run --name go-web -p 8080:8080 -d dev-to`
+
+---
+
+The web server expose only one route and we can make a `HTTP GET` request with _curl_ as follow:
+
+```sh
+curl localhost:8080/events
+```
+

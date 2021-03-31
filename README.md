@@ -14,6 +14,7 @@
 
 ---
 
-This is a simple example of using channels, goroutines and the `select` statement in golang. 
+<p align='center'>This is a simple example of using channels, goroutines and the select statement in golang.</p>
+ 
 
 

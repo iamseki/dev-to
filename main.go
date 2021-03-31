@@ -1,45 +1,64 @@
 package main
 
 import (
-	"encoding/json"
-	"log"
-	"net/http"
-	"time"
-
-	"github.com/iamseki/dev-to/domain"
-	"github.com/iamseki/dev-to/infra/repository"
-	"github.com/iamseki/dev-to/usecases"
+	"bufio"
+	"fmt"
+	"os"
+	"strconv"
 )
 
+type message struct {
+	text   string
+	number int
+}
+
 func main() {
-	mux := http.NewServeMux()
+	msg := make(chan message)
+	exit := make(chan bool)
 
-	mux.HandleFunc("/events", func(w http.ResponseWriter, r *http.Request) {
-		if r.Method != "GET" {
-			http.Error(w, "Method not Allowed", http.StatusMethodNotAllowed)
-			return
+	go readInput(msg, exit)
+	for {
+		select {
+		case m := <-msg:
+			validateInputAndGetNumber(&m)
+			calculate(m)
+			fmt.Print("˲Give me a number or exit: ")
+		case <-exit:
+			fmt.Println("˲Exiting program...")
+			os.Exit(1)
 		}
-
-		repo := repository.NewInMemoryRepository()
-		u := usecases.NewFindEventInMemory(repo)
-
-		events, err := u.Find(domain.Filter{})
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-		} else {
-			body, _ := json.Marshal(events)
-			w.Header().Set("Content-Type", "application/json")
-			w.Write(body)
-		}
-	})
-
-	addr := `:8080`
-	srv := &http.Server{
-		Addr:         addr,
-		Handler:      mux,
-		ReadTimeout:  10 * time.Second,
-		WriteTimeout: 30 * time.Second,
 	}
-	log.Println(`listen on localhost`, addr)
-	log.Fatalln(srv.ListenAndServe())
+}
+
+func validateInputAndGetNumber(input *message) {
+	number, err := strconv.Atoi(input.text)
+	if err != nil {
+		fmt.Printf("˲Invalid input: %v --- TRY AGAIN YOU CAN !\n", err)
+		return
+	}
+	input.number = number
+}
+
+func calculate(input message) {
+	if input.number != 0 {
+		for i := 0; i <= 10; i++ {
+			fmt.Printf("→ %11v x %v = %-7v\n", input.number, i, input.number*i)
+		}
+	}
+}
+
+func readInput(msg chan<- message, exit chan<- bool) {
+	f := os.Stdin
+	defer f.Close()
+
+	scanner := bufio.NewScanner(f)
+	fmt.Print("˲Give me a number or exit: ")
+	for scanner.Scan() {
+		inputMsg := scanner.Text()
+		if inputMsg == "exit" {
+			exit <- true
+		} else {
+			msg <- message{text: inputMsg}
+		}
+	}
 }

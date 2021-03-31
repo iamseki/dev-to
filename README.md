@@ -6,25 +6,14 @@
 
 - I create the branches with the name similar to the **title** of the post
 
-## Testing :scroll:
+## Running :scroll:
 
-`go test ./usecases/...`
+`go run main.go` and then interact with the cli:
 
-We can also see the coverage results in a pretty interface with built in go tool:
-
-- `go test ./... -coverprofile cover.out`
-- `go tool cover -html cover.out`
-
-## Build and Run :whale:
-
-- `docker build -t dev-to .`
-- `docker run --name go-web -p 8080:8080 -d dev-to`
+<img alt="logo" src="./cli.png" />
 
 ---
 
-The web server expose only one route and we can make a `HTTP GET` request with _curl_ as follow:
+This is a simple example of using channels, goroutines and the `select` statement in golang. 
 
-```sh
-curl localhost:8080/events
-```
 

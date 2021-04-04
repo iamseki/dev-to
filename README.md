@@ -6,15 +6,19 @@
 
 - I create the branches with the name similar to the **title** of the post
 
-## Running :scroll:
+## Running apps :scroll:
 
-`go run main.go` and then interact with the cli:
+- `docker-compose up -d`
 
-<img alt="logo" src="./cli.png" />
+## Endpoints :clipboard:
 
----
+| App     | Endpoints              | Port    |
+| ------- |:----------------------:| -------:|
+| Golang  | `/hc`   `/fibonacci/n` | **8080**|
+| Nodejs  | `/hc`   `/fibonacci/n` | **9090**|
 
-<p align='center'>This is a simple example of using channels, goroutines and the select statement in golang.</p>
- 
+## Running tests :muscle:
 
+- Golang: `k6 run ./k6-test.js -e API_BASE=GOLANG`
 
+- Nodejs: `k6 run ./k6-test.js`

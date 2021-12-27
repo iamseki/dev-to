@@ -17,6 +17,8 @@ func main() {
 		nth, _ := strconv.Atoi(ctx.Params().Get("nth"))
 
 		result := fibonnaci(nth)
+
+		ctx.Header("Cache-Control", "max-age=3600")
 		ctx.JSON(iris.Map{"fibonacci": result})
 	})
 

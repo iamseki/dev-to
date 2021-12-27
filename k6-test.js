@@ -5,19 +5,23 @@ const SLEEP_DURATION = 0.1;
 
 export let options = {
     stages: [
-        { duration: "1m", target: 100 },
-        { duration: "2m", target: 100 },
-        { duration: "1m", target: 0 }
+        { duration: "30s", target: 100 },
+        { duration: "30s", target: 0 },
     ],
     thresholds: {
-        http_req_duration: ['p(95)<1000'] // 99% request must complete below 1s
+        http_req_duration: ['p(99)<100'] // 99% request must complete below 100ms
     }
 }
 
-const BASE_URL = __ENV.API_BASE === "GOLANG" ? "http://localhost:8080" : "http://localhost:9090" 
+const NGINX_LOCAL_URL = "http://localhost:3000"
+const API_LOCAL_URL = "http://localhost:8080"
+
+const BASE_URL = __ENV.API_URL === "NGINX" ? NGINX_LOCAL_URL : API_LOCAL_URL 
 const HEADERS = { "Content-Type": "application/json" }
 
+const randomInteger = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+
 export default () => {
-    http.get(`${BASE_URL}/fibonacci/9999999`);
+    http.get(`${BASE_URL}/fibonacci/${randomInteger(9999991,9999999)}`);
     sleep(SLEEP_DURATION);
 }

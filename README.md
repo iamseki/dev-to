@@ -9,16 +9,12 @@
 ## Running apps :scroll:
 
 - `docker-compose up -d`
+- `k6 run k6-test.js -e API_URL='NGINX'`
+- `k6 run k6-test.js`
 
 ## Endpoints :clipboard:
 
 | App     | Endpoints              | Port    |
 | ------- |:----------------------:| -------:|
-| Golang  | `/hc`   `/fibonacci/n` | **8080**|
-| Nodejs  | `/hc`   `/fibonacci/n` | **9090**|
-
-## Running tests :muscle:
-
-- Golang: `k6 run ./k6-test.js -e API_BASE=GOLANG`
-
-- Nodejs: `k6 run ./k6-test.js`
+| Api     |   `/fibonacci/n`       | **8080**|
+| Nginx   |   `/fibonacci/n`       | **3000**|

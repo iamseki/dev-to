@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  rtmp:
+    build: ./nginx
+    ports:
+      - "1935:1935"
+      - "8080:8080"
+    container_name: "stream_server"
+    volumes:
+      - ./data/hls:/tmp/hls
+      - ./data/dash:/tmp/dash
+  api:
+    build: ./api
+    ports: 
+      - "3000:3000"
+    container_name: "api"

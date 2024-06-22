@@ -1,0 +1,93 @@
+{
+  "name": "javascript-load-testing",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/javascript-load-testing/nodejs",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "defaultConfiguration": "production",
+      "options": {
+        "platform": "node",
+        "outputPath": "dist/apps/javascript-load-testing",
+        "format": [
+          "cjs"
+        ],
+        "bundle": false,
+        "main": "apps/javascript-load-testing/nodejs/main.ts",
+        "tsConfig": "apps/javascript-load-testing/tsconfig.app.json",
+        "generatePackageJson": true,
+        "esbuildOptions": {
+          "sourcemap": true,
+          "outExtension": {
+            ".js": ".js"
+          }
+        }
+      },
+      "configurations": {
+        "development": {},
+        "production": {
+          "esbuildOptions": {
+            "sourcemap": false,
+            "outExtension": {
+              ".js": ".js"
+            }
+          }
+        }
+      }
+    },
+    "serve-golang": {
+      "executor": "@nx-go/nx-go:serve",
+      "options": {
+        "main": "{projectRoot}/golang/main.go"
+      }
+    },
+    "serve-nodejs": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "javascript-load-testing:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "javascript-load-testing:build:development"
+        },
+        "production": {
+          "buildTarget": "javascript-load-testing:build:production"
+        }
+      }
+    },
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "nx serve-golang javascript-load-testing"
+          },
+          {
+            "command": "nx serve-nodejs javascript-load-testing"
+          }
+        ],
+        "parallel": true
+      }
+    },
+    "load-test-golang": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "k6 run k6-test.js -e API_BASE='GOLANG'",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "load-test-nodejs": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "k6 run k6-test.js",
+        "cwd": "{projectRoot}"
+      }
+    }
+  }
+}

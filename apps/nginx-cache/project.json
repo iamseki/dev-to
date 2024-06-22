@@ -8,13 +8,51 @@
     "build": {
       "executor": "@nx-go/nx-go:build",
       "options": {
-        "main": "{projectRoot}/main.go"
+        "outputPath": "dist/apps/nginx-cache",
+        "main": "apps/nginx-cache/api.go",
+        "env": {
+          "CGO_ENABLED": "0"
+        },
+        "flags": [
+          "-ldflags='-s -w'"
+        ]
       }
     },
     "serve": {
+      "dependsOn": [
+        "compose-up"
+      ],
       "executor": "@nx-go/nx-go:serve",
       "options": {
-        "main": "{projectRoot}/main.go"
+        "main": "{projectRoot}/api.go"
+      }
+    },
+    "compose-up": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "docker compose up -d",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "compose-down": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "docker compose down",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "load-test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "k6 run k6-test.js",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "load-test-with-nginx": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "k6 run k6-test.js -e API_URL='NGINX'",
+        "cwd": "{projectRoot}"
       }
     },
     "test": {

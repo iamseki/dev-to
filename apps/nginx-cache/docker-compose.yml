@@ -2,12 +2,11 @@ version: "3"
 
 services:
   nginx:
-    build: nginx
+    build:
+      context: .
+      dockerfile: nginx.Dockerfile
     ports:
       - "3000:3000"
     volumes:
       - "./cache:/tmp/nginx/cache"
-  api:
-    build: api
-    ports:
-      - "8080:8080"
+    network_mode: host

@@ -4,7 +4,7 @@ This project demonstrates how to use K6 for load testing simple endpoints that c
 
 ## Running the applications
 
-- To run both apps execute `yarn nx serve javascript-load-testing`.
+- To run both apps execute `yarn nx serve javascript-load-testing`
 
 ## Load Testing Comparison
 

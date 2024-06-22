@@ -8,7 +8,13 @@
     "production": [
       "default"
     ],
-    "sharedGlobals": []
+    "sharedGlobals": [
+      "{workspaceRoot}/go.mod"
+    ]
+  },
+  "workspaceLayout": {
+    "appsDir": "apps",
+    "libsDir": "libs"
   },
   "nxCloudAccessToken": "Njc0YjZiMzYtZTU2My00OTUzLTgyNjMtZDY2MDgyYmUxNWIxfHJlYWQtd3JpdGU="
 }

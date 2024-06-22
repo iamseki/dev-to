@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  nginx:
+    build: nginx
+    ports:
+      - "3000:3000"
+    volumes:
+      - "./cache:/tmp/nginx/cache"
+  api:
+    build: api
+    ports:
+      - "8080:8080"

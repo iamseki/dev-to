@@ -1443,6 +1443,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@dev-to/source@workspace:."
   dependencies:
+    "@nx-go/nx-go": ^3.1.0
     "@nx/js": 19.3.1
     "@nx/workspace": 19.3.1
     nx: 19.3.1
@@ -1576,7 +1577,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nx/devkit@npm:19.3.1":
+"@nx-go/nx-go@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "@nx-go/nx-go@npm:3.1.0"
+  dependencies:
+    "@nx/devkit": ^17.0.0 || ^18.0.0 || ^19.0.0
+    tslib: ^2.3.0
+  checksum: b038ddaac420a07aeabb01853958a4f6ea230b908d10e36f7a51c5cb6cba270f2f34b1cd4206c9d7d674dc61f1e7d229a66e91602769fdc619efd726531ff4f5
+  languageName: node
+  linkType: hard
+
+"@nx/devkit@npm:19.3.1, @nx/devkit@npm:^17.0.0 || ^18.0.0 || ^19.0.0":
   version: 19.3.1
   resolution: "@nx/devkit@npm:19.3.1"
   dependencies:

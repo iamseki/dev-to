@@ -4,9 +4,10 @@
   "license": "MIT",
   "private": true,
   "devDependencies": {
+    "@nx-go/nx-go": "^3.1.0",
     "@nx/js": "19.3.1",
     "@nx/workspace": "19.3.1",
     "nx": "19.3.1"
   },
-  "packageManager": "yarn@3.6.0"
+  "packageManager": "yarn@4.3.0"
 }

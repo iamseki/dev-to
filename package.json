@@ -1,0 +1,12 @@
+{
+  "name": "@dev-to/source",
+  "version": "0.0.0",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "@nx/js": "19.3.1",
+    "@nx/workspace": "19.3.1",
+    "nx": "19.3.1"
+  },
+  "packageManager": "yarn@3.6.0"
+}

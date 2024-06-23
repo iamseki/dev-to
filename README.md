@@ -13,3 +13,4 @@
 
 - Caching with Nginx (**[More details](/apps/nginx-cache)**).
 - Load Testing with K6 and Javascript (**[More details](/apps/javascript-load-testing)**).
+- Select Keyword in Golang (**[More details](/apps/select-keyword)**).

@@ -22,7 +22,7 @@
 - [x] setup devbox
 - [x] migrate nginx-cache project
 - [x] migrate javascript-load-testing project
-- [ ] migrate select-keyword project
+- [x] migrate select-keyword project
 - [ ] migrate super-minimalistic-docker-image project
 - [ ] migrate nginx-streaming project
 - [ ] setup ci

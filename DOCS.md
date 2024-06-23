@@ -23,8 +23,8 @@
 - [x] migrate nginx-cache project
 - [x] migrate javascript-load-testing project
 - [x] migrate select-keyword project
+- [x] migrate how-i-mock-unit-tests
 - [ ] migrate super-minimalistic-docker-image project
-- [ ] migrate nginx-streaming project
 - [ ] setup ci
 - [ ] adjust README
 - [ ] write dev to post on why and how did I choose monorepo style

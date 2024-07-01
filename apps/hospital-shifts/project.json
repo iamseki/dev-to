@@ -1,0 +1,39 @@
+{
+  "name": "hospital-shifts",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/hospital-shifts",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx-go/nx-go:build",
+      "options": {
+        "main": "{projectRoot}/main.go"
+      }
+    },
+    "compose-up": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "docker compose up -d",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "serve": {
+      "executor": "@nx-go/nx-go:serve",
+      "dependsOn": ["compose-up"],
+      "options": {
+        "main": "{projectRoot}/*.go"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "k6 run test.js",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "lint": {
+      "executor": "@nx-go/nx-go:lint"
+    }
+  }
+}

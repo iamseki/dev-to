@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_PASSWORD: local
+      POSTGRES_USER: local
+      POSTGRES_PASSWORD: local
+      POSTGRES_DB: hospital_shifts
+    volumes:
+      - ./init_data.sql:/docker-entrypoint-initdb.d/init_data.sql
+    ports:
+      - "5432:5432"
+
+volumes:
+  postgres:

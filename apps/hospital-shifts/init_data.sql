@@ -20,19 +20,28 @@ RETURNS VOID AS $$
 DECLARE
     lock_id BIGINT;
     on_call_count INT;
+    lock_acquired BOOLEAN;
 BEGIN
     lock_id := shift_id; -- Use shift_id as the lock ID for the shift-level lock
-    PERFORM pg_advisory_lock(lock_id);
+
+    -- Attempt to acquire the advisory lock
+    lock_acquired := pg_try_advisory_lock(lock_id);
+
+    IF NOT lock_acquired THEN
+        -- Optionally handle or log that the lock couldn't be acquired
+        RAISE NOTICE 'Could not acquire advisory lock for shift_id: %', shift_id;
+        RETURN; -- Exit the function early if lock couldn't be acquired
+    END IF;
 
     -- Check the current number of doctors on call for this shift
-    SELECT COUNT(*) INTO on_call_count FROM shifts WHERE shift_id = shift_id AND on_call = TRUE;
+    SELECT COUNT(*) INTO on_call_count FROM shifts s WHERE s.shift_id = update_on_call_status_with_advisory_lock.shift_id AND s.on_call = TRUE;
 
     IF on_call = FALSE AND on_call_count = 1 THEN
-        RAISE EXCEPTION 'Cannot set on_call to FALSE. At least one doctor must be on call for this shift.';
+        RAISE EXCEPTION '[AdvisoryLock] Cannot set on_call to FALSE. At least one doctor must be on call for this shiftId: %', shift_id;
     ELSE
-        UPDATE shifts
-        SET on_call = on_call
-        WHERE shift_id = shift_id AND doctor_name = doctor_name;
+        UPDATE shifts s
+        SET on_call = update_on_call_status_with_advisory_lock.on_call
+        WHERE s.shift_id = update_on_call_status_with_advisory_lock.shift_id AND s.doctor_name = update_on_call_status_with_advisory_lock.doctor_name;
     END IF;
 
     PERFORM pg_advisory_unlock(lock_id);
@@ -46,14 +55,14 @@ DECLARE
     on_call_count INT;
 BEGIN
     -- Check the current number of doctors on call for this shift
-    SELECT COUNT(*) INTO on_call_count FROM shifts WHERE shift_id = shift_id AND on_call = TRUE;
+    SELECT COUNT(*) INTO on_call_count FROM shifts s WHERE s.shift_id = update_on_call_status_with_serializable_isolation.shift_id AND s.on_call = TRUE;
 
     IF on_call = FALSE AND on_call_count = 1 THEN
-        RAISE EXCEPTION 'Cannot set on_call to FALSE. At least one doctor must be on call for this shift.';
+        RAISE EXCEPTION '[SerializableIsolation] Cannot set on_call to FALSE. At least one doctor must be on call for this shiftId: %', shift_id;
     ELSE
-        UPDATE shifts
-        SET on_call = on_call
-        WHERE shift_id = shift_id AND doctor_name = doctor_name;
+        UPDATE shifts s
+        SET on_call = update_on_call_status_with_serializable_isolation.on_call
+        WHERE s.shift_id = update_on_call_status_with_serializable_isolation.shift_id AND s.doctor_name = update_on_call_status_with_serializable_isolation.doctor_name;
     END IF;
 
 END;

@@ -2,6 +2,7 @@ package main
 
 import (
 	"database/sql"
+	"fmt"
 	"net/http"
 
 	"github.com/jmoiron/sqlx"
@@ -29,7 +30,7 @@ func updateWithDefaultIsolation(c echo.Context, db *sqlx.DB) error {
 
 	// Logic to ensure at least one doctor is always on call
 	if ds.OnCall == false && onCallCount == 1 {
-		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Cannot set on_call to FALSE. At least one doctor must be on call for this shift."})
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": fmt.Sprintf(`[ReadCommittedIsolation] Cannot set on_call to FALSE. At least one doctor must be on call for this shiftId: %v.`, ds.ShiftID)})
 	}
 
 	_, err = tx.Exec(`UPDATE shifts SET on_call = $1 WHERE shift_id = $2 AND doctor_name = $3`, ds.OnCall, ds.ShiftID, ds.DoctorName)
@@ -99,4 +100,14 @@ func resetShifts(c echo.Context, db *sqlx.DB) error {
 	}
 
 	return c.JSON(http.StatusOK, map[string]string{"status": "success"})
+}
+
+func listShifts(c echo.Context, db *sqlx.DB) error {
+	doctors := &[]DoctorShift{}
+	err := db.Select(doctors, "SELECT * from shifts")
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
+	}
+
+	return c.JSON(http.StatusOK, doctors)
 }

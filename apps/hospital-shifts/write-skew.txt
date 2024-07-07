@@ -1,0 +1,11 @@
+
+
+John --BEGIN------doctors on call: 2-------leave on call-----COMMIT--------> (t)
+          \                 \                      \             \
+           \                 \                      \             \ 
+Database ------------------------------------------------------------------> (t)
+               /               /                      /              /
+              /               /                      /              /
+Jack ------BEGIN------doctors on call: 2-----leave on call----COMMIT-------> (t)
+
+

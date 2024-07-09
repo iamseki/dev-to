@@ -1,3 +1,4 @@
 - Is functions executed within a transaction using pl/pgsql? Or did I have to surround it with a transaction?
 - Is there a flaw in the pg_try_advisory_lock due to be a lock at session level instead of transaction? It may work for this example but flaws if we run more than one instance of the app...
 - Add some ping stuff to compose setup. The first time the app is started it might take some time to pgsql container to start to accept connections
+- Benchmark functions?

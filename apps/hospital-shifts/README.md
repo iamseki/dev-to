@@ -1,6 +1,6 @@
 # Hospital Shifts Race Condition Example
 
-This project demonstrates a race condition scenario that can happen with concurrent writes and how to fix it using PostgreSQL's [serialization isolation level](https://www.postgresql.org/docs/current/transaction-iso.html#XACT-SERIALIZABLE) or [advisory locks](https://www.postgresql.org/docs/current/explicit-locking.html#ADVISORY-LOCKS).
+This project demonstrates a race condition scenario that can happen with concurrent writes and how to fix it using PostgreSQL's [serialization isolation level](https://www.postgresql.org/docs/current/transaction-iso.html#XACT-SERIALIZABLE) or [advisory locks](https://www.postgresql.org/docs/current/explicit-locking.html#ADVISORY-LOCKS). Checkout the dev.to post: **[Dealing with Race Conditions: A Practical Example](https://dev.to/chseki/dealing-with-race-conditions-a-practical-example-1mhg)**.
 
 **Inspiration**: Designing Data-Intensive Applications, Chapter 7 - Transactions "Weak Isolation Levels"
 

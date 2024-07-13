@@ -14,16 +14,15 @@ INSERT INTO shifts (shift_id, doctor_name, on_call) VALUES (2, 'John', TRUE);
 INSERT INTO shifts (shift_id, doctor_name, on_call) VALUES (3, 'Thamires', TRUE);
 INSERT INTO shifts (shift_id, doctor_name, on_call) VALUES (3, 'Rafaella', TRUE);
 
--- Function to Manage On Call Status with Advisory Locks
+-- Function to Manage On Call Status with Advisory Locks, automatic release when the trx commits
 CREATE OR REPLACE FUNCTION update_on_call_status_with_advisory_lock(shift_id_to_update INT, doctor_name_to_update TEXT, on_call_to_update BOOLEAN)
 RETURNS VOID AS $$
 DECLARE
     on_call_count INT;
 BEGIN
     -- Attempt to acquire advisory lock and handle failure with NOTICE
-    IF NOT pg_try_advisory_lock(shift_id_to_update) THEN
-        RAISE NOTICE 'Could not acquire advisory lock for shift_id: %', shift_id_to_update;
-        RETURN;
+    IF NOT pg_try_advisory_xact_lock(shift_id_to_update) THEN
+        RAISE EXCEPTION '[AdvisoryLock] Could not acquire advisory lock for shift_id: %', shift_id_to_update;
     END IF;
 
     -- Check the current number of doctors on call for this shift
@@ -36,8 +35,6 @@ BEGIN
         SET on_call = on_call_to_update
         WHERE s.shift_id = shift_id_to_update AND s.doctor_name = doctor_name_to_update;
     END IF;
-
-    PERFORM pg_advisory_unlock(shift_id_to_update);
 END;
 $$ LANGUAGE plpgsql;
 

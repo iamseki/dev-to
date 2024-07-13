@@ -8,6 +8,11 @@ services:
       POSTGRES_USER: local
       POSTGRES_PASSWORD: local
       POSTGRES_DB: hospital_shifts
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     volumes:
       - ./init_data.sql:/docker-entrypoint-initdb.d/init_data.sql
     ports:

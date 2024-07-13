@@ -140,9 +140,9 @@ export default function () {
   console.log(`<------      -      ------>`);
 
   check(shifts, {
-    'at least one doctor on call for shiftId=1': (shifts) => shifts.filter(s => s.shiftId === 1 && s.onCall === false).length === 1, 
-    'at least one doctor on call for shiftId=2': (shifts) => shifts.filter(s => s.shiftId === 2 && s.onCall === false).length === 1, 
-    'at least one doctor on call for shiftId=3': (shifts) => shifts.filter(s => s.shiftId === 3 && s.onCall === false).length === 1, 
+    'at least one doctor on call for shiftId=1': (shifts) => shifts.filter(s => s.shiftId === 1 && s.onCall === true).length > 0,
+    'at least one doctor on call for shiftId=2': (shifts) => shifts.filter(s => s.shiftId === 2 && s.onCall === true).length > 0, 
+    'at least one doctor on call for shiftId=3': (shifts) => shifts.filter(s => s.shiftId === 3 && s.onCall === true).length > 0, 
   });
 
   http.post(`${BASE_URL}/reset/shift`);

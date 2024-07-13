@@ -17,7 +17,7 @@ type DoctorShift struct {
 func main() {
 	e := echo.New()
 
-	db, err := sqlx.Connect("postgres", "user=local password=local dbname=hospital_shifts sslmode=disable")
+	db, err := sqlx.Connect("postgres", "user=local password=local dbname=hospital_shifts sslmode=disable application_name=shift_app")
 	if err != nil {
 		e.Logger.Fatal(err)
 	}

@@ -51,9 +51,23 @@ func updateWithAdvisoryLock(c echo.Context, db *sqlx.DB) error {
 		return c.JSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
 	}
 
+	// Init transaction with serializable isolation level
+	tx, err := db.BeginTxx(c.Request().Context(), &sql.TxOptions{
+		Isolation: sql.LevelSerializable,
+	})
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
+	}
+	defer tx.Rollback()
+
 	c.Logger().Infof("handle update with advisory lock for %v \n", ds)
 
-	_, err := db.Exec(`SELECT update_on_call_status_with_advisory_lock($1, $2, $3)`, ds.ShiftID, ds.DoctorName, ds.OnCall)
+	_, err = tx.Exec(`SELECT update_on_call_status_with_advisory_lock($1, $2, $3)`, ds.ShiftID, ds.DoctorName, ds.OnCall)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
+	}
+
+	err = tx.Commit()
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
 	}

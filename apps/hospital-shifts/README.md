@@ -40,6 +40,11 @@ Each iteration displays the current on-call status and any errors related to pre
 ***Pay attention to*** `shiftId 3`: This shift is updated by the endpoint without any concurrency protection. Sometimes, it violates the requirement of having one doctor on call, leaving the shift uncovered.
 
 ```sh
+     ✓ at least one doctor on call for shiftId=1
+     ✓ at least one doctor on call for shiftId=2
+     ✗ at least one doctor on call for shiftId=3
+      ↳  36% — ✓ 123 / ✗ 217
+
 ======== Iteration ID: 337 START ======== 
 ERRO[0005] Request failed: 500 - {"error":"pq: [AdvisoryLock] Cannot set on_call to FALSE. At least one doctor must be on call for this shiftId: 1"}
 ERRO[0005] Request failed: 500 - {"error":"pq: [SerializableIsolation] Cannot set on_call to FALSE. At least one doctor must be on call for this shiftId: 2"}

@@ -11,7 +11,8 @@
 
 ## Available Projects :scroll:
 
-- Dealing with Race Conditions: A Practical Example (**[More details](/apps/hospital-shifts/)**)
+- Dealing with Race Conditions: A Practical Example (**[More details](/apps/hospital-shifts/)**).
+- Reading Large JSON Files Efficiently in Go (**[More details](/apps//processing-large-json-golang/)**).
 - Caching with Nginx (**[More details](/apps/nginx-cache)**).
 - Load Testing with K6 and Javascript (**[More details](/apps/javascript-load-testing)**).
 - Select Keyword in Golang (**[More details](/apps/select-keyword)**).

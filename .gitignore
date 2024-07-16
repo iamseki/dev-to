@@ -49,3 +49,6 @@ Thumbs.db
 
 .nx/cache
 .nx/workspace-data
+
+# Custom Files
+largefile*

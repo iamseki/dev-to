@@ -9,7 +9,9 @@
 TODO
 
 - [x] custom size file generator
-- [] naive approach
+- [x] naive approach
 - [] chunked approach
-- [] benchmark
+- [] insert database example?
+- [x] benchmark
+- [x] profiling
 - [] enhance README.md

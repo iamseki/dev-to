@@ -35,7 +35,7 @@ func OptimizedParseFile(filename string) {
 			log.Fatalln("Error decoding JSON user: ", err)
 		}
 
-		log.Println(user)
+		// log.Println(user)
 	}
 
 	// Read the closing bracket of the JSON array

@@ -11,16 +11,31 @@
         "main": "{projectRoot}/main.go"
       }
     },
-    "serve": {
-      "executor": "@nx-go/nx-go:serve",
-      "options": {
-        "main": "{projectRoot}/*.go"
-      }
-    },
     "generate-file": {
       "executor": "nx:run-commands",
       "options": {
         "command": "go run cmd/generate/main.go",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "process": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "go run cmd/parse/main.go",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "analyze-cpu": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "go tool pprof cpu.prof",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "analyze-mem": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "go tool pprof -http=localhost:6060 mem.prof",
         "cwd": "{projectRoot}"
       }
     },

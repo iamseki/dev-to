@@ -16,7 +16,7 @@ func main() {
 	flag.Parse()
 
 	// profiling CPU
-	cpu_prof, err := os.Create("cpu.prof")
+	cpu_prof, err := os.Create("cpu-naive.prof")
 	if err != nil {
 		log.Fatalf("error create cpu.prof: %v", err)
 	}
@@ -26,7 +26,7 @@ func main() {
 	parser.NaiveParseFile(filename)
 
 	// profiling MEM
-	mem_prof, err := os.Create("mem.prof")
+	mem_prof, err := os.Create("mem-naive.prof")
 	if err != nil {
 		log.Fatalf("error create mem.prof: %v", err)
 	}

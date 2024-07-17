@@ -18,24 +18,31 @@
         "cwd": "{projectRoot}"
       }
     },
-    "process": {
+    "process-naive": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "go run cmd/parse/main.go",
+        "command": "go run cmd/parse-naive/main.go",
         "cwd": "{projectRoot}"
       }
     },
-    "analyze-cpu": {
+    "process-optimized": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "go tool pprof cpu.prof",
+        "command": "go run cmd/parse-optimized/main.go",
         "cwd": "{projectRoot}"
       }
     },
-    "analyze-mem": {
+    "analyze-mem-naive": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "go tool pprof -http=localhost:6060 mem.prof",
+        "command": "go tool pprof -http=localhost:6060 mem-naive.prof",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "analyze-mem-optimized": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "go tool pprof -http=localhost:6062 mem-opt.prof",
         "cwd": "{projectRoot}"
       }
     },

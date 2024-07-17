@@ -46,6 +46,20 @@
         "cwd": "{projectRoot}"
       }
     },
+    "bench-naive": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "go test ./cmd/parse-naive -bench=. -benchmem -benchtime=10s",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "bench-optimized": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "go test ./cmd/parse-optimized -bench=. -benchmem -benchtime=10s",
+        "cwd": "{projectRoot}"
+      }
+    },
     "test": {
       "executor": "@nx-go/nx-go:test"
     },

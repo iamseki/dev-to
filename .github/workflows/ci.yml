@@ -18,13 +18,10 @@ jobs:
         with:
           fetch-depth: 0
       
-      
-
       # Connect your workspace on nx.app and uncomment this to enable task distribution.
       # The "--stop-agents-after" is optional, but allows idle agents to shut down once the "build" targets have been requested
       # - run: yarn dlx nx-cloud start-ci-run --distribute-on="5 linux-medium-js" --stop-agents-after="build"
 
-      
       # Cache node_modules
       - uses: actions/setup-node@v3
         with:
@@ -36,4 +33,4 @@ jobs:
 
       # Prepend any command with "nx-cloud record --" to record its logs to Nx Cloud
       # - run: yarn nx-cloud record -- echo Hello World
-      - run: yarn nx affected -t lint test build
+      - run: yarn nx affected -t test

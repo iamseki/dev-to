@@ -1,6 +1,6 @@
 # Reading Large JSON Files Efficiently in Go: Naive vs. Chunked Approaches
 
-This project demonstrates how to read a large JSON file using two different approaches in Golang. One approach loads the entire file into memory, while the other reads it in chunks using a buffered reader and JSON decoder. Check out the dev.to post: **[TODO]()**
+This project demonstrates how to read a large JSON file using two different approaches in Golang. One approach loads the entire file into memory, while the other reads it in chunks using a buffered reader and JSON decoder. Check out the dev.to post: **[Handling Large JSON Files in Go: Naive vs. Chunked Approaches](https://dev.to/chseki/handling-large-json-files-in-go-naive-vs-chunked-approaches-4cel)**
 
 ## Generating the Large File
 

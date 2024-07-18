@@ -12,7 +12,7 @@ import (
 
 func main() {
 	var filename string
-	flag.StringVar(&filename, "filename", "", "Filename to parse")
+	flag.StringVar(&filename, "filename", "defaultfile-1mb.json", "Filename to parse")
 	flag.Parse()
 
 	// profiling CPU

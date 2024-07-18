@@ -21,9 +21,5 @@ func NaiveParseFile(filename string) {
 		log.Fatalf("error on decode users from json file: %v", err)
 	}
 
-	/*
-		for _, user := range users {
-			log.Println(user)
-		}
-	*/
+	// DO STUFF
 }

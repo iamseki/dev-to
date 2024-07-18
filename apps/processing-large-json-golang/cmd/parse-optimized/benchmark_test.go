@@ -8,7 +8,7 @@ import (
 )
 
 func BenchmarkParseJSONOptimized(b *testing.B) {
-	filename := "../../largefile-20240717-104907-20mb.json"
+	filename := "../../largefile-20240718-083247-100mb.json"
 
 	log.Println("Starting BenchmarkParseJSONOptimized")
 	for i := 0; i < b.N; i++ {
